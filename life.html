@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The life of Pugs</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #ffffff;
+            color: #000000;
+            font-family: "Times New Roman", Times, serif;
+            /* Permite el desplazamiento vertical prolongado para ver el efecto */
+            overflow-x: hidden; 
+        }
+        
+        /* Contenedor principal del contenido */
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 4rem;
+            margin-top: 50px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: #555555;
+            margin-bottom: 60px;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.25rem;
+            text-align: justify;
+            text-indent: 30px;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo base para los emojis flotantes */
+        .floating-emoji {
+            position: fixed;
+            bottom: -50px;
+            font-size: 2.5rem;
+            pointer-events: none; /* No interfieren con la lectura ni clics */
+            z-index: 1;
+            animation: floatUp 4s linear forwards;
+            opacity: 0.8;
+            user-select: none;
+        }
+
+        /* Animación para que los emojis suban y desaparezcan */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Espacio extra al final para asegurar bastante scroll */
+        .footer-spacer {
+            height: 300px;
+            text-align: center;
+            padding-top: 100px;
+            font-style: italic;
+            font-size: 1.1rem;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <h1>Pug life</h1>
+        <div class="subtitle">The chronicle of an existence dedicated to resting and snacks</div>
+
+        <section>
+            <h2>Royal Origins</h2>
+            <p>The history of the pug dates back to ancient China, where they were considered imperial treasures. The emperors of early dynasties deeply valued these small canines because of the wrinkles on their foreheads, which often resembled the characters in oriental writing that meant "good fortune." They lived surrounded by unimaginable luxury, guarded by soldiers and fed with the finest delicacies of the court.</p>
+        </section>
+
+        <section>
+            <h2>The Daily Routine: The Art of Doing Nothing</h2>
+            <p>In the modern era, a pug's life is governed by a strict schedule centered around absolute comfort. The average pug's day begins with a late awakening, followed immediately by a thorough inspection of the kitchen in search of any trace of food. The rest of the hours are spent in a constant search for the warmest spot in the house, preferably where a direct ray of sunlight filters through the window.</p>
+            <p>Sleep occupies approximately eighty percent of their day. These iconic snores, caused by their brachycephalic physiognomy, act as a constant soundtrack in any home that houses one of these specimens. A pug does not simply sleep; it masters the art of deep rest in the most asymmetrical and unlikely positions possible.</p>
+        </section>
+
+        <section>
+            <h2>Personality and Temperament</h2>
+            <p>Despite their serious and wrinkled appearance, the pug possesses a comical and highly affectionate heart. They are frequently described with the Latin phrase "multum in parvo," which means "much in little space." This encapsulates their huge personality contained in a compact body. They are social beings by nature, with an absolute devotion to their human companions, whom they will follow from room to room like small silent (or rather noisy) shadows.</p>
+        </section>
+
+        <section>
+            <h2>The Legacy of the Pug</h2>
+            <p>Reaching old age in a pug's life implies the arrival of gray hairs around their iconic black mask, giving them the appearance of wise philosophers. Their existence proves that true happiness resides in the simplest things: a good nap, the warmth of family, and, of course, the eternal hope of receiving an extra piece of cheese.</p>
+        </section>
+
+        <div class="footer-spacer">
+            Designed by TheGeekPug
+        </div>
+    </div>
+
+    <script>
+        // Lista de emojis de perritos variados que aparecerán al bajar
+        const dogEmojis = ['🐶', '🐕', '🦮', '🐕‍🦺', '🐾', '🐩'];
+        
+        let lastScrollTop = 0;
+        let scrollCounter = 0;
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Detecta si el usuario está bajando (scrolling down)
+            if (scrollTop > lastScrollTop) {
+                scrollCounter++;
+                
+                // Controla la frecuencia de aparición para que no se sature la pantalla
+                // Cada 12 unidades de scroll hacia abajo, lanza un emoji
+                if (scrollCounter % 12 === 0) {
+                    createFloatingDog();
+                }
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
+        });
+
+        function createFloatingDog() {
+            const emoji = document.createElement('div');
+            emoji.className = 'floating-emoji';
+            
+            // Selecciona un emoji de perro aleatorio de la lista
+            emoji.innerText = dogEmojis[Math.floor(Math.random() * dogEmojis.length)];
+            
+            // Posición horizontal aleatoria por todo el ancho de la pantalla
+            const randomX = Math.random() * 100;
+            emoji.style.left = randomX + 'vw';
+            
+            // Tamaño aleatorio para dar profundidad visual (entre 1.5rem y 3.5rem)
+            const randomSize = Math.random() * 2 + 1.5;
+            emoji.style.fontSize = randomSize + 'rem';
+            
+            // Duración aleatoria de la animación para que unos suban más rápido que otros
+            const randomDuration = Math.random() * 2 + 3; // entre 3 y 5 segundos
+            emoji.style.animationDuration = randomDuration + 's';
+
+            document.body.appendChild(emoji);
+
+            // Elimina el elemento del HTML una vez que termina de subir para cuidar el rendimiento
+            emoji.addEventListener('animationend', () => {
+                emoji.remove();
+            });
+        }
+    </script>
+</body>
+</html>
